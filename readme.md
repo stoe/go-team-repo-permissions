@@ -2,7 +2,7 @@
 
 > Get teams' repository permissions
 
-[![build](https://github.com/stoe/go-team-repo-permissions/workflows/build/badge.svg)](https://github.com/stoe/go-team-repo-permissions/actions?query=workflow%3Abuild) [![release](https://github.com/stoe/go-team-repo-permissions/workflows/release/badge.svg)](https://github.com/stoe/go-team-repo-permissions/actions?query=workflow%3Arelease)
+[![build](https://github.com/stoe/go-team-repo-permissions/workflows/build/badge.svg)](https://github.com/stoe/go-team-repo-permissions/actions?query=workflow%3Abuild) [![codeql](https://github.com/stoe/go-team-repo-permissions/workflows/codeql/badge.svg)](https://github.com/stoe/go-team-repo-permissions/actions?query=workflow%3Acodeql) [![release](https://github.com/stoe/go-team-repo-permissions/workflows/release/badge.svg)](https://github.com/stoe/go-team-repo-permissions/actions?query=workflow%3Arelease)
 
 ## Install
 
