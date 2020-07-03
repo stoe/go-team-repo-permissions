@@ -32,9 +32,10 @@ var (
 	ctx = context.Background()
 
 	rootCmd = &cobra.Command{
-		Use:   "ghec-team-repo-permissions",
-		Short: "Get repository permissions for your organization teams",
-		RunE:  getTeamRepoPermissions,
+		Use:     "ghec-team-repo-permissions",
+		Short:   "Get repository permissions for your organization teams",
+		RunE:    getTeamRepoPermissions,
+		Version: "0.0.1",
 	}
 
 	teamQuery struct {
@@ -96,7 +97,7 @@ func getTeamRepoPermissions(cmd *cobra.Command, args []string) error {
 	}
 
 	writer := csv.NewWriter(os.Stdout)
-	header   := []string{"team", "repository", "permission"}
+	header := []string{"team", "repository", "permission"}
 	writer.Write(header)
 
 	for _, t := range teams {
