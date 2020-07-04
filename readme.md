@@ -1,6 +1,6 @@
 # ghec-team-repo-permissions
 
-> Get teams' repository permissions
+> Get repository permissions for your organization teams on GitHub Enterprise Cloud
 
 [![build](https://github.com/stoe/go-team-repo-permissions/workflows/build/badge.svg)](https://github.com/stoe/go-team-repo-permissions/actions?query=workflow%3Abuild) [![codeql](https://github.com/stoe/go-team-repo-permissions/workflows/codeql/badge.svg)](https://github.com/stoe/go-team-repo-permissions/actions?query=workflow%3Acodeql) [![release](https://github.com/stoe/go-team-repo-permissions/workflows/release/badge.svg)](https://github.com/stoe/go-team-repo-permissions/actions?query=workflow%3Arelease)
 
@@ -17,7 +17,7 @@ $ ghec-team-repo-permissions [options]
 ```
 
 ```txt
-Get repository permissions for your organization teams
+Get repository permissions for your organization teams on GitHub Enterprise Cloud
 
 Usage:
   ghec-team-repo-permissions [flags]

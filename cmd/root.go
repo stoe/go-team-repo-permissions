@@ -43,7 +43,7 @@ var (
 
 	rootCmd = &cobra.Command{
 		Use:     "ghec-team-repo-permissions",
-		Short:   "Get repository permissions for your organization teams",
+		Short:   "Get repository permissions for your organization teams on GitHub Enterprise Cloud",
 		RunE:    getTeamRepoPermissions,
 		Version: "0.0.2",
 	}
