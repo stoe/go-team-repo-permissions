@@ -45,7 +45,7 @@ var (
 		Use:     "ghec-team-repo-permissions",
 		Short:   "Get repository permissions for your organization teams on GitHub Enterprise Cloud",
 		RunE:    getTeamRepoPermissions,
-		Version: "0.0.2",
+		Version: "0.0.3",
 	}
 
 	teamQuery struct {
