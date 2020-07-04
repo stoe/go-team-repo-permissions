@@ -36,15 +36,16 @@ type rl struct {
 var (
 	token        string
 	organization string
-	client       *graphql.Client
+	writeCSV     bool
 
-	ctx = context.Background()
+	client *graphql.Client
+	ctx    = context.Background()
 
 	rootCmd = &cobra.Command{
 		Use:     "ghec-team-repo-permissions",
 		Short:   "Get repository permissions for your organization teams",
 		RunE:    getTeamRepoPermissions,
-		Version: "0.0.1",
+		Version: "0.0.2",
 	}
 
 	teamQuery struct {
@@ -111,7 +112,25 @@ func getTeamRepoPermissions(cmd *cobra.Command, args []string) error {
 		variables["page"] = *&teamQuery.Organization.Teams.PageInfo.EndCursor
 	}
 
-	writer := csv.NewWriter(os.Stdout)
+	var writer *csv.Writer
+	var fp string
+
+	if writeCSV {
+		fp = "./team-repo-permissions.csv"
+		os.Remove(fp)
+
+		file, err := os.Create(fp)
+		defer file.Close()
+
+		if err != nil {
+			return err
+		}
+
+		writer = csv.NewWriter(file)
+	} else {
+		writer = csv.NewWriter(os.Stdout)
+	}
+
 	header := []string{"team", "repository", "permission"}
 	writer.Write(header)
 
@@ -155,6 +174,10 @@ func getTeamRepoPermissions(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
+	if writeCSV {
+		fmt.Println("output saved to", fp)
+	}
+
 	return nil
 }
 
@@ -178,6 +201,11 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(
 		&organization, "org", "o", "",
 		"github.com organization",
+	)
+
+	rootCmd.PersistentFlags().BoolVar(
+		&writeCSV, "csv", false,
+		"save to CSV file (team-repo-permissions.csv) in current directory",
 	)
 }
 
