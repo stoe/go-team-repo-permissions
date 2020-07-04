@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"time"
 
 	graphql "github.com/shurcooL/githubv4"
 	"github.com/spf13/cobra"
@@ -22,6 +23,14 @@ type repo struct {
 		NameWithOwner string
 	}
 	Permission string
+}
+
+type rl struct {
+	Cost      int
+	Limit     int64
+	NodeCount int64
+	Remaining int64
+	ResetAt   time.Time
 }
 
 var (
@@ -48,6 +57,7 @@ var (
 				Nodes []team
 			} `graphql:"teams(first: 100, after: $page)"`
 		} `graphql:"organization(login: $org)"`
+		RateLimit rl
 	}
 
 	repoQuery struct {
@@ -62,6 +72,7 @@ var (
 				} `graphql:"repositories(first: 100, after: $page)"`
 			} `graphql:"team(slug: $team)"`
 		} `graphql:"organization(login: $org)"`
+		RateLimit rl
 	}
 )
 
@@ -87,6 +98,10 @@ func getTeamRepoPermissions(cmd *cobra.Command, args []string) error {
 		}
 
 		teams = append(teams, teamQuery.Organization.Teams.Nodes...)
+
+		if teamQuery.RateLimit.Remaining < 500 {
+			throttle(teamQuery.RateLimit)
+		}
 
 		// break on last page
 		if !teamQuery.Organization.Teams.PageInfo.HasNextPage {
@@ -118,6 +133,11 @@ func getTeamRepoPermissions(cmd *cobra.Command, args []string) error {
 					r.Node.NameWithOwner,
 					r.Permission,
 				})
+				writer.Flush()
+			}
+
+			if repoQuery.RateLimit.Remaining < 500 {
+				throttle(repoQuery.RateLimit)
 			}
 
 			// break on last page
@@ -165,4 +185,8 @@ func initClient() {
 	client = graphql.NewEnterpriseClient(
 		"https://api.github.com/graphql", httpClient,
 	)
+}
+
+func throttle(rl rl) {
+	time.Sleep(3600 * time.Millisecond)
 }
