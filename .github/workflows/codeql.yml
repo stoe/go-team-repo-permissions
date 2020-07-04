@@ -1,7 +1,8 @@
 on:
-  push:
   pull_request:
+  push:
   schedule:
+    # every Monday at 01:00 UTC
     - cron: "0 1 * * 1"
 
 name: codeql
@@ -16,7 +17,8 @@ jobs:
         with:
           fetch-depth: 2
 
-      - run: git checkout HEAD^2
+      - name: Checkout PR
+        run: git checkout HEAD^2
         if: ${{ github.event_name == 'pull_request' }}
 
       - name: Initialize CodeQL
