@@ -23,9 +23,11 @@ Usage:
   ghec-team-repo-permissions [flags]
 
 Flags:
+      --csv            save to CSV file (team-repo-permissions.csv) in current directory
   -h, --help           help for ghec-team-repo-permissions
   -o, --org string     github.com organization
-  -t, --token string   github.com personal access token (PAT)
+  -t, --token string   github.com personal access token (default "GITHUB_TOKEN")
+  -v, --version        version for ghec-team-repo-permissions
 ```
 
 ## License
