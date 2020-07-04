@@ -170,11 +170,14 @@ func init() {
 	cobra.OnInitialize(initClient)
 
 	rootCmd.PersistentFlags().StringVarP(
-		&token, "token", "t", "", "github.com personal access token (PAT)",
+		&token, "token", "t", "GITHUB_TOKEN",
+		"github.com personal access token",
 	)
+	token = os.Getenv("GITHUB_TOKEN")
 
 	rootCmd.PersistentFlags().StringVarP(
-		&organization, "org", "o", "", "github.com organization",
+		&organization, "org", "o", "",
+		"github.com organization",
 	)
 }
 
