@@ -19,10 +19,6 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Checkout PR
-        run: git checkout HEAD^2
-        if: ${{ github.event_name == 'pull_request' }}
-
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
